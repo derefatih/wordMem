@@ -1,0 +1,46 @@
+﻿@model Word
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="container">
+    <div class="card shadow">
+        <div class="m-5">
+            <div class="card-header border-0">
+                <h3>Add Word</h3>
+            </div>
+
+            <form asp-controller="Word" asp-action="Create" asp-route-id="@ViewContext.RouteData.Values["id"]" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="name" value="" />
+                <div class="form-group">
+                    <label>Own Language</label>
+                    <input asp-for="OwnLang" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Foreign Language</label>
+                    <input asp-for="ForeignLang" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Sample Sentence</label>
+                    <input asp-for="SampleSentence" class="form-control" />
+                </div>
+
+                <div class="row form-group justify-content-center align-items-center">
+                   
+                    <div class="col-3">
+                        <label>Image: </label>
+                    </div>
+                    <div class="col-9">
+
+                        <input type="file" name="file" id="file" class="form-control" />
+                    </div>
+                </div>
+
+                <input type="submit" class="btn btn-primary" value="Save" />
+            </form>
+
+        </div>
+    </div>
+</div>

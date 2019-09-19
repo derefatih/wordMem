@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Word>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="container bg-light">
+    <div class="row ">
+        <div class="col-6  mt-3  mb-3">
+            @foreach (var item in Model)
+            {
+                <button class="btn bg-blue btn-block" data-value="@item.OwnLang">
+                    @item.ForeignLang
+                </button>
+            }
+        </div>
+        <div class="col-6  mt-3 mb-3">
+            @foreach (var item in Model)
+            {
+                <button  class="btn bg-gradient-blue btn-block" data-value="@item.OwnLang">
+                    @item.OwnLang
+                </button>
+            }
+        </div>
+    </div>
+   
+</div>

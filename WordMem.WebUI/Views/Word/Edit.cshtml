@@ -1,0 +1,48 @@
+﻿@model Word
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="container">
+
+    <div class="card shadow">
+        <div class="m-5">
+            <div class="card-header border-0">
+                <h3>Edit Word</h3>
+            </div>
+
+            <form asp-controller="Word" asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="WordId" />
+                <input asp-for="Image" type="hidden" class="form-control" />
+                <div class="form-group">
+                    <label>Own Language</label>
+                    <input asp-for="OwnLang" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Foreign Language</label>
+                    <input asp-for="ForeignLang" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Sample Sentence</label>
+                    <input asp-for="SampleSentence" class="form-control" />
+                </div>
+
+                <div class="row form-group justify-content-center align-items-center">
+                  
+                    <div class="col-3">
+                        <label>Image : </label>
+                        <img src="~/images/@Model.Image" alt="Alternate Text" />
+                    </div>
+                    <div class="col-9">
+
+                        <input type="file" name="file" id="file" class="form-control" />
+                    </div>
+                </div>
+
+                <input type="submit" class="btn btn-success float-lg-right" value="Save" />
+            </form>
+        </div>
+    </div>
+</div>

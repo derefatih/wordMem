@@ -1,0 +1,20 @@
+﻿@model UserListDto
+@{
+    ViewData["Title"] = "UserList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>UserList</h1>
+@foreach (var item in Model.Users)
+{
+<table>
+    <tr>
+        <td>@item.FirstName</td>
+        <td>@item.Email</td>
+        <td>@item.UserName</td>
+        <td>@item.LastName</td>
+    </tr>
+</table>
+    
+}
+

@@ -1,0 +1,12 @@
+﻿@model UserSettingsDTO
+@{
+    ViewData["Title"] = "Settings";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h1>Settings:</h1>
+
+compare: @Model.Compare
+Fill: @Model.Fill
+Random: @Model.Random
+Number Of Words In Games: @Model.TestWordCount

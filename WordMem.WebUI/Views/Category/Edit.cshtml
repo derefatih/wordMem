@@ -1,0 +1,32 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="container">
+    <div class="card shadow">
+        <div class="card-header border-0">
+            <h3>Edit Category</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" asp-controller="Category" method="post">
+                <input type="hidden" asp-for="@Model.CategoryId" />
+                <div class="row">
+
+
+                    <div class="form-group">
+                        <label class="label">Category Name:</label>
+                        <input asp-for="@Model.CategoryName" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
