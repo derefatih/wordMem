@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WordMem.Business.Abstract;
 using WordMem.Entity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WordMem.Business.Concrete
 {
@@ -21,5 +19,5 @@ namespace WordMem.Business.Concrete
 
            return await userManager.FindByEmailAsync(email);
         }
-    }
+  }
 }

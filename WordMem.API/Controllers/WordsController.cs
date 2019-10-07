@@ -9,6 +9,7 @@ using WordMem.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using WordMem.DataAccess.Abstract;
+using System.Security.Claims;
 
 namespace WordMem.API
 {
@@ -26,11 +27,22 @@ namespace WordMem.API
             uow = _uow;
         }
 
+
+
         // GET: api/Words
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Word>>> GetWords()
         {
-            return await uow.Words.GetAll().ToListAsync();
+            var email = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+            var user = await userManager.FindByEmailAsync(email);
+
+            var userCategories = uow.Categories.Find(i => i.ApplicationUser == user).Select(i => i.CategoryId).ToList();
+
+            var userWords = await uow.Words.GetAll()
+                .Include(i => i.WordCategories)
+                .Where(word => word.WordCategories.Any(l => userCategories.Contains(l.CategoryId))).ToListAsync();
+            return userWords;
         }
 
         //// GET: api/Words/5

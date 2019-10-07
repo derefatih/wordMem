@@ -7,6 +7,13 @@ namespace WordMem.CrossCutting.DTOs
 {
     public class WordListDTO
     {
+
+        public WordListDTO()
+        {
+            Words = new List<WordList>();
+            LearnedWords = new List<WordList>();
+            StudiedWords = new List<WordList>();
+        }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public List<WordList> Words { get; set; }

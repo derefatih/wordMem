@@ -46,6 +46,7 @@ namespace EduraWebUI
 
             services.AddTransient<IUnitOfWork, EfUnitOfWorks>();
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IWordService, WordService>();
             services.AddTransient<IAdminUserService, AdminUserService>();
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {

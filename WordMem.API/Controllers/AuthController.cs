@@ -49,7 +49,9 @@ namespace WordMem.API
                     var tokeOptions = new JwtSecurityToken(
                         issuer: "http://localhost:5000",
                         audience: "http://localhost:5000",
-                        claims: new List<Claim>(),
+                        claims: new List<Claim>{
+                            new Claim(ClaimTypes.Email,user.Email)
+                        },
                         expires: DateTime.Now.AddMinutes(5),
                         signingCredentials: signinCredentials
                     );

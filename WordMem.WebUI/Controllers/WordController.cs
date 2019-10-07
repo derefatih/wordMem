@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WordMem.Business.Abstract;
 using WordMem.CrossCutting.DTOs;
 using WordMem.DataAccess.Abstract;
 using WordMem.Entity;
@@ -19,11 +20,15 @@ namespace WordMem.Controllers
     {
         private IUnitOfWork uow;
         private UserManager<ApplicationUser> userManager;
+        private IWordService wordService;
 
-        public WordController(IUnitOfWork _uow, UserManager<ApplicationUser> _userManager)
+        public WordController(IUnitOfWork _uow, 
+            UserManager<ApplicationUser> _userManager,
+            IWordService _wordService)
         {
             userManager = _userManager;
             uow = _uow;
+            wordService = _wordService;
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
@@ -44,29 +49,13 @@ namespace WordMem.Controllers
             }
 
             var viewModel = new WordListDTO();
-            viewModel.Words = new List<WordList>();
-            viewModel.LearnedWords = new List<WordList>();
-            viewModel.StudiedWords = new List<WordList>();
             var cat = uow.Categories.Get(id);
             viewModel.CategoryName = cat.CategoryName;
             viewModel.CategoryId = cat.CategoryId;
 
-            //var words = uow.Words.GetAll()
-            //    .Include(i => i.WordCategories)
-            //    .ThenInclude(i => i.Category)
-            //    .Where(i => i.WordCategories.Any(a => a.Category.CategoryId == id));
-
-            var words = uow.Words.GetAll()
-                .Include(i=>i.WordStatistic)
-                .Where(i=>i.WordCategories.Any(k=>k.CategoryId==id) && i.WordStatistic.IsLearned==false && i.WordStatistic.IsStudied == false);
-
-            var LearnedWords = uow.Words.GetAll()
-             .Include(i => i.WordStatistic)
-             .Where(i => i.WordCategories.Any(k => k.CategoryId == id) && i.WordStatistic.IsLearned == true);
-
-            var StudiedWords = uow.Words.GetAll()
-           .Include(i => i.WordStatistic)
-           .Where(i => i.WordCategories.Any(k => k.CategoryId == id) && i.WordStatistic.IsStudied == true && i.WordStatistic.IsLearned == false);
+            var words = wordService.GetWordsByCategoryId(id);
+            var LearnedWords = wordService.GetLearnedWordsByCategoryId(id);
+            var StudiedWords = wordService.GetStudiedWordsByCategoryId(id);
 
             viewModel.WordCount = words.Count();
             viewModel.LearnedWordCount = LearnedWords.Count();
